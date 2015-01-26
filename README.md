@@ -1,2 +1,6 @@
-# wordpress-theme-creation-with-underscores
-Source files for Tuts+ course: WordPress Theme Creation with Underscores
+### Tuts+ Course: WordPress Theme Creation with Underscores
+#### Instructor: [Kezz Bracey](https://tutsplus.com/authors/kezz-bracey)
+
+Underscores starter theme, by the makers of WordPress themselves, is designed to give you a “1000 hour head start” on WP theme creation. This course will take you the rest of the way to the finish line, with everything you need to know to go from “starter” to a fully fledged WordPress theme.
+
+**Available on Tuts+ February 2015**
