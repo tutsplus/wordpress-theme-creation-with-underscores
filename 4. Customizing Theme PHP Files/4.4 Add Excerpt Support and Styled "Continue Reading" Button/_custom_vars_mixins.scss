@@ -1,0 +1,291 @@
+// **-----
+// STRUCTURE
+// **-----
+
+$phi: 1.618;
+
+$base_font_size: 16;
+$px: ( 1 / $base_font_size ) * 1rem;
+
+
+// Post and widget column settings
+$readable_width: 40rem;
+$default_gutter: $phi * 1rem;
+// 0.3 means sidebar will be 30% width
+$small_col: 0.3;
+
+
+// DEFAULT _S "STRUCTURE" VARS 
+$size__site-main: 100%;
+$size__site-sidebar: percentage($small_col);
+// /end
+
+
+// Padding settings
+$default_h_padding: $phi * $phi * $phi * 1rem;
+$default_v_padding: $default_h_padding;
+
+// Posts and widgets horizontal padding
+$post_l_padding: $default_h_padding;
+$post_r_padding: $post_l_padding;
+$widget_l_padding: $default_h_padding / $phi;
+$widget_r_padding: $widget_l_padding;
+
+// Posts and widgets vertical padding
+$post_t_padding: $default_h_padding / $phi;
+$post_b_padding: $post_t_padding;
+$widget_t_padding: $default_h_padding / $phi;
+$widget_b_padding: $widget_t_padding;
+
+
+
+@function total_site_width() {
+	// Figure out how many overall rems wide the posts should be, allowing for a readability optimized width on text plus left and right padding
+	$total_post_width_rem: $readable_width + $post_l_padding + $post_r_padding;
+
+	// Figure out how many rems wide the widgets should be in order to have a golden ratio relationship with the posts
+	$sidebar_width_rem: (( $total_post_width_rem / (1-$small_col) ) + $widget_l_padding + $widget_r_padding) * $small_col;
+
+	// Add the two together in order to determine how many rems wide the total site wrapper should be
+  @return $total_post_width_rem + $sidebar_width_rem + $default_gutter;
+  // @return $total_post_width_rem;
+}
+
+
+
+// **-----
+// TYPOGRAPHY
+// **-----
+
+
+// DEFAULT _S "TYPOGRAPHY" VARS
+$font__main: Raleway, "Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif;
+$font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+$font__pre: "Courier 10 Pitch", Courier, monospace;
+$font__line-height-body: $phi*1em;
+$font__line-height-pre: $phi*1em;
+// /end
+
+
+$htag_lineheight: 1.313em;
+$htag_family: $font__main;
+$htag_weight: 300;
+
+// H tag font sizes 1 through 6
+$htag_sizes: 3, 2.25, 1.5, 1.313, 1.125, 1;
+
+// H tag vertical margins 1 through 6
+$htag_vmargins: 0.563, 0.625, 1.313, 1.313, 1.313, 0.75;
+
+@mixin htags( $factor: 1 ){
+	h1, h2, h3, h4, h5, h6 {
+		font-family: $htag_family;
+		line-height: $htag_lineheight;
+		font-weight: $htag_weight;
+	}
+	@for $i from 1 through 6 {
+		h#{$i} {
+			$value: nth($htag_sizes, $i);
+			$size: if( ($value * $factor) < 1, 1, $value * $factor );
+			font-size: $size * 1em;
+			margin: ( nth($htag_vmargins, $i) * 1em ) 0;
+		}
+	}
+	// Set H1 widget titles default size
+	.widget-title {
+		$default: nth($htag_sizes, 4);
+		$size: if( ($default * $factor) < 1, 1, $default * $factor );
+		font-size: $size * 1em;
+	}
+}
+
+
+
+// **-----
+// COLORS
+// **-----
+
+
+// DEFAULT _S "COLORS" VARS
+$color__background-body: #ebe8e5;
+$color__background-screen: #f1f1f1;
+$color__background-hr: #ccc;
+$color__background-button: #e6e6e6;
+$color__background-pre: #eee;
+$color__background-ins: #fff9c0;
+
+$color__text-screen: #21759b;
+$color__text-input: #666;
+$color__text-input-focus: #111;
+$color__link: #7b6e62;
+$color__link-visited: $color__link;
+$color__link-hover: $color__link;
+$color__text-main: #505050;
+
+$color__border-button: #ccc #ccc #bbb;
+$color__border-button-hover: #ccc #bbb #aaa;
+$color__border-button-focus: #aaa #bbb #bbb;
+$color__border-input: #ccc;
+$color__border-abbr: #666;
+
+// /end
+
+// custom color variables
+
+$color__background-main_panel: #fff;
+$color__border-main_panel: #DFD8CF;
+
+$color__background-sub_panel: #ebe8e5;
+$color__border-sub_panel: #e8e0da;
+$color__text-sub_panel: #76624e;
+
+$color__entry_highlight: #7B6048;
+
+// Mixins to apply coloring
+
+@mixin body(){
+	border-top: 2*$px solid $color__border-main_panel;
+	background-color: $color__background-body;
+}
+
+@mixin links(){
+	a {
+		text-decoration: none;
+		border-bottom: 1px dotted transparent;
+	}
+	a:hover, a:active {
+		border-bottom: 1px dotted $color__link;
+	}
+}
+
+@mixin blockquote(){
+	background-color: $color__background-sub_panel;
+	border: 1*$px solid $color__border-sub_panel;
+	color: $color__text-sub_panel;
+	a, a:visited, a:active {
+		color: inherit;
+	}
+}
+
+@mixin main_panel(){
+	background-color: $color__background-main_panel;
+	border: 1*$px solid $color__border-main_panel;
+	box-shadow: 0 1*$px 1*$px rgba(33, 19, 4, 0.07);
+}
+
+@mixin sub_panel(){
+	background-color: $color__background-sub_panel;
+	border: 1*$px solid $color__border-sub_panel;
+	box-shadow: inset 0 2*$px 5*$px rgba(194, 188, 184, 0.1);
+	color: $color__text-sub_panel;
+	a, a:visited, a:active {
+		color: inherit;
+	}
+}
+
+@mixin widget-divider(){
+	border-bottom: 1 * $px solid $color__border-sub_panel;
+}
+
+@mixin widget-divider-top(){
+	border-top: 1 * $px solid $color__border-sub_panel;
+}
+
+@mixin entry_meta(){
+	background-color: $color__link;
+	color: $color__background-main_panel;
+	a, a:visited, a:active {
+		color: inherit;
+	}
+	a:hover, a:active {
+		border-bottom: 1px dotted $color__background-main_panel;
+	}
+}
+
+@mixin dotted_link(){
+	a, a:link, a:visited {
+		border-bottom: 1*$px dotted $color__entry_highlight;
+		background-color: lighten($color__background-sub_panel, 2%);
+		color: $color__text-main;
+	}
+	a:hover, a:active {
+		background-color: $color__background-sub_panel;
+	}
+}
+
+@mixin entry_footer(){
+	color: $color__link;
+	border-bottom: 2*$px solid saturate(lighten($color__link, 45%), 10%);
+	span {
+		border-top: 2*$px solid saturate(lighten($color__link, 45%), 10%);
+	}
+}
+
+@mixin comment(){
+	background-color: rgba(221, 193, 174, 0.05);
+	border: 1*$px solid rgba(108, 67, 38, 0.05);
+	box-shadow: inset 0 2*$px 5*$px rgba(194, 188, 184, 0.05);
+}
+
+@mixin sticky_post(){
+	border-width: 7*$px;
+	border-color: $color__background-body;
+	box-shadow: 0 3*$px 6*$px rgba(33, 19, 4, 0.15);
+}
+
+@mixin site_footer(){
+	a {
+		color: darken($color__link, 5%);
+	}
+}
+
+@mixin post_thumbnail(){
+	border-top: 10 * $px solid $color__link;
+	border-bottom: 10 * $px solid $color__link;
+}
+
+@mixin more_link(){
+	background: none;
+	border-top: 3*$px solid saturate(lighten($color__link, 45%), 10%);
+	border-bottom: 3*$px solid saturate(lighten($color__link, 45%), 10%);
+	color: $color__link;
+}
+
+// Menu coloring
+
+@mixin child_menu_expanded(){
+	background-color: darken(saturate($color__background-sub_panel, 5%), 1%);
+	border: 1*$px solid $color__border-sub_panel;
+	border-bottom: 0;
+	box-shadow: 0 2*$px 5*$px rgba(0, 0, 0, 0.1);
+}
+
+@mixin child_menu_item(){
+	a, a:link, a:visited {
+		border: 0;
+		border-top: 1*$px solid darken($color__border-sub_panel, 2%);
+	}
+	a:hover {
+	background-color: lighten(saturate($color__background-sub_panel, 3%), 0.25%);
+	}
+}
+
+@mixin compact_menu_item(){
+	border-top: 1*$px solid $color__border-sub_panel;
+	&:hover {
+		border-bottom-color: transparent;
+		background-color: darken(saturate($color__background-sub_panel, 5%), 1%);
+	}
+}
+
+@mixin child_menu_compact(){
+	background-color: darken(saturate($color__background-sub_panel, 7%), 2%);
+}
+
+@mixin child_menu_compact_item(){
+	border-top: 1*$px solid darken($color__border-sub_panel, 2%);
+	&:hover {
+		border-bottom-color: transparent;
+		background-color: darken(saturate($color__background-sub_panel, 8%),3%);
+	}
+}

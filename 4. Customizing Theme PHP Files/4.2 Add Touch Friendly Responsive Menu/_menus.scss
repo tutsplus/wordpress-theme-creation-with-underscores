@@ -1,0 +1,145 @@
+.main-navigation {
+	h1 {
+	  display: none !important;
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		position: relative;
+		white-space: nowrap;
+		li {
+			cursor: pointer;
+			list-style: none;
+			display: block;
+			position: relative;
+			padding: 0;
+			a {
+				display: inline-block;
+			}
+			/* switch symbol for showing child */
+			span {
+				display: inline-block;
+				text-align: right;
+				width: 1.4em;
+				padding-right: 0.5em;
+				margin-left: 0.5em;
+				margin-right: -0.5em;
+			}
+			/* nav child menu */
+			ul {
+				display: none;
+				padding: 0;
+				margin: 0;
+			}
+			/* show child */
+			ul.childopen {
+				display: block;
+			}
+		}
+	}
+}
+
+/* expanded nav menu */
+@media (min-width: total_site_width()) {
+
+	.navicon {
+		display: none;
+	}
+
+	.navmenu {
+		display: block;
+	}
+
+	.main-navigation ul {
+		float: right;
+		display: inline-table;
+		// padding: 0 1em;
+		li {
+			float: left;
+			a {
+				padding: $phi * 1rem;
+			}
+			/* expanded nav child menu */
+			ul {
+				position: absolute;
+				z-index: 9999;
+				top: 100%;
+				left: 0;
+				@include child_menu_expanded();
+				li {
+					float: none;
+					a {
+						width: 100%;
+						line-height: 4.5rem;                                  
+						padding: 0 2.1875rem;
+					}
+					@include child_menu_item();
+				}
+			}
+		}
+	}
+
+}
+
+/* collapsed nav menu */
+@media (max-width: total_site_width()) {
+
+	.navicon {
+		float: right;
+		font-size: 1.65rem;
+		line-height: 2.8125rem;
+		text-align: center;
+		width: 54*$px;
+		margin: 15*$px;
+		cursor: pointer;
+	}
+
+	.main-navigation ul {
+		clear: left;
+		display: none;
+		&.show {
+			display: block;
+		}
+		li {
+			a {
+				width: 100%;
+				line-height: 4.5rem;
+				padding: 0 2.1875rem;
+				@include compact_menu_item();
+			}
+		}
+		/* collapsed nav child menu */
+		ul {
+			position: relative;
+			left: 0;
+			@include child_menu_compact();
+			li a {
+				@include child_menu_compact_item();
+			}
+		}
+	}
+
+}
+
+.site-main .comment-navigation,
+.site-main .posts-navigation,
+.site-main .post-navigation {
+	margin: 0 0 1.5em;
+	overflow: hidden;
+}
+
+.comment-navigation .nav-previous,
+.posts-navigation .nav-previous,
+.post-navigation .nav-previous {
+	float: left;
+	width: 50%;
+}
+
+.comment-navigation .nav-next,
+.posts-navigation .nav-next,
+.post-navigation .nav-next {
+	float: right;
+	text-align: right;
+	width: 50%;
+}

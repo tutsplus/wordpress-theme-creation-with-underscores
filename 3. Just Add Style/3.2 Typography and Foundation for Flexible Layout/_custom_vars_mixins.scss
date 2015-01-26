@@ -1,0 +1,95 @@
+// **-----
+// STRUCTURE
+// **-----
+
+$phi: 1.618;
+
+$base_font_size: 16;
+$px: ( 1 / $base_font_size ) * 1rem;
+
+
+// DEFAULT _S "STRUCTURE" VARS 
+$size__site-main: 100%;
+$size__site-sidebar: 25%;
+// /end
+
+
+
+// **-----
+// TYPOGRAPHY
+// **-----
+
+@import url("//fonts.googleapis.com/css?family=Raleway:300,400,700,900");
+
+
+// DEFAULT _S "TYPOGRAPHY" VARS
+$font__main: Raleway, "Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif;
+$font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+$font__pre: "Courier 10 Pitch", Courier, monospace;
+$font__line-height-body: $phi*1em;
+$font__line-height-pre: $phi*1em;
+// /end
+
+
+$htag_lineheight: 1.313em;
+$htag_family: $font__main;
+$htag_weight: 300;
+
+// H tag font sizes 1 through 6
+$htag_sizes: 3, 2.25, 1.5, 1.313, 1.125, 1;
+
+// H tag vertical margins 1 through 6
+$htag_vmargins: 0.563, 0.625, 1.313, 1.313, 1.313, 0.75;
+
+@mixin htags( $factor: 1 ){
+	h1, h2, h3, h4, h5, h6 {
+		font-family: $htag_family;
+		line-height: $htag_lineheight;
+		font-weight: $htag_weight;
+	}
+	@for $i from 1 through 6 {
+		h#{$i} {
+			$value: nth($htag_sizes, $i);
+			$size: if( ($value * $factor) < 1, 1, $value * $factor );
+			font-size: $size * 1em;
+			margin: ( nth($htag_vmargins, $i) * 1em ) 0;
+		}
+	}
+	// Set H1 widget titles default size
+	.widget-title {
+		$default: nth($htag_sizes, 4);
+		$size: if( ($default * $factor) < 1, 1, $default * $factor );
+		font-size: $size * 1em;
+	}
+}
+
+
+
+// **-----
+// COLORS
+// **-----
+
+
+// DEFAULT _S "COLORS" VARS
+$color__background-body: #fff;
+$color__background-screen: #f1f1f1;
+$color__background-hr: #ccc;
+$color__background-button: #e6e6e6;
+$color__background-pre: #eee;
+$color__background-ins: #fff9c0;
+
+$color__text-screen: #21759b;
+$color__text-input: #666;
+$color__text-input-focus: #111;
+$color__link: royalblue;
+$color__link-visited: purple;
+$color__link-hover: midnightblue;
+$color__text-main: #404040;
+
+$color__border-button: #ccc #ccc #bbb;
+$color__border-button-hover: #ccc #bbb #aaa;
+$color__border-button-focus: #aaa #bbb #bbb;
+$color__border-input: #ccc;
+$color__border-abbr: #666;
+
+// /end
