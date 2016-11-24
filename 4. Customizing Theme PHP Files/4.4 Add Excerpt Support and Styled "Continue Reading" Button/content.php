@@ -23,7 +23,7 @@
 
 	<div class="entry-content">
 		<?php
-			if ( $post->post_excerpt ) {
+			if ( $post->post_excerpt && !is_single()) {  //this prevents the Excerpt appearing in single.php (^-^)v
 				the_excerpt();
 				echo sprintf( '<div class="continue_btn"><a href="%s" class="more-link" rel="bookmark">Continue Reading'.the_title( '<span class="screen-reader-text">"', '"</span>', false ).'</a></div>', esc_url(get_permalink()) );
 			} else {
